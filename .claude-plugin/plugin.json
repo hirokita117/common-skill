@@ -1,6 +1,6 @@
 {
-  "name": "common-skill",
-  "description": "Common Claude Code skills. Includes skill-check, a two-phase diagnostic that validates a skill folder against Agent Skills best practices.",
+  "name": "skill-check",
+  "description": "Skill-check: a two-phase diagnostic that validates a skill folder against Agent Skills best practices.",
   "version": "0.1.0",
   "author": {
     "name": "hirokita117"

@@ -12,13 +12,13 @@ This repository is both a Claude Code **plugin** and its own **marketplace**.
 
 ```
 /plugin marketplace add hirokita117/common-skill
-/plugin install common-skill@common-skill
+/plugin install skill-check@common-skill
 ```
 
 Once installed, invoke the skill with:
 
 ```
-/common-skill:skill-check [path-to-skill-folder]
+/skill-check:skill-check [path-to-skill-folder]
 ```
 
 ## Layout

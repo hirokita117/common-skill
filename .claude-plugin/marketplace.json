@@ -6,9 +6,9 @@
   },
   "plugins": [
     {
-      "name": "common-skill",
+      "name": "skill-check",
       "source": "./",
-      "description": "Common Claude Code skills, including the skill-check diagnostic.",
+      "description": "Skill-check: a two-phase diagnostic that validates a skill folder against Agent Skills best practices.",
       "version": "0.1.0",
       "author": {
         "name": "hirokita117"
