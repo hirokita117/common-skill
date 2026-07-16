@@ -17,8 +17,10 @@ Diagnose a skill folder in two phases. Phase 1 runs a deterministic script for s
 Run the checker script directly on the specified folder:
 
 ```bash
-python ~/.claude/skills/skill-check/scripts/check_skill.py $ARGUMENTS
+python "${CLAUDE_PLUGIN_ROOT:-$HOME/.claude}/skills/skill-check/scripts/check_skill.py" $ARGUMENTS
 ```
+
+`${CLAUDE_PLUGIN_ROOT}` is set automatically when this skill runs from an installed plugin; the fallback (`$HOME/.claude`) is used when the skill is installed directly under `~/.claude/skills`.
 
 ### When no argument is provided (`/skill-check`)
 
@@ -26,14 +28,14 @@ Do NOT default to the current directory. Instead, discover available skills and 
 
 1. List skill directories by running:
    ```bash
-   python ~/.claude/skills/skill-check/scripts/list_skills.py
+   python "${CLAUDE_PLUGIN_ROOT:-$HOME/.claude}/skills/skill-check/scripts/list_skills.py"
    ```
 2. Show the user the discovered skills and ask which one to check.
    - If only one skill is found, confirm with the user and proceed.
    - If no skills are found, tell the user and ask them to provide a path explicitly.
 3. After the user picks a skill, run the checker on that path:
    ```bash
-   python ~/.claude/skills/skill-check/scripts/check_skill.py <chosen-skill-path>
+   python "${CLAUDE_PLUGIN_ROOT:-$HOME/.claude}/skills/skill-check/scripts/check_skill.py" <chosen-skill-path>
    ```
 
 The script exits with code 0 if no CRITICAL issues found, or 1 if there are CRITICAL issues.

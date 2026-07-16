@@ -1,0 +1,22 @@
+{
+  "name": "common-skill",
+  "description": "Marketplace for common Claude Code skills maintained by hirokita117.",
+  "owner": {
+    "name": "hirokita117"
+  },
+  "plugins": [
+    {
+      "name": "common-skill",
+      "source": "./",
+      "description": "Common Claude Code skills, including the skill-check diagnostic.",
+      "version": "0.1.0",
+      "author": {
+        "name": "hirokita117"
+      },
+      "homepage": "https://github.com/hirokita117/common-skill",
+      "repository": "https://github.com/hirokita117/common-skill",
+      "license": "MIT",
+      "keywords": ["skill", "lint", "validation", "best-practices"]
+    }
+  ]
+}
