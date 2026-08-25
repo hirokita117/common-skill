@@ -1,13 +1,13 @@
 {
-  "name": "skill-check",
-  "description": "Skill-check: a two-phase diagnostic that validates a skill folder against Agent Skills best practices.",
-  "version": "0.1.0",
+  "name": "common-skill",
+  "description": "A collection of Claude Code skills: skill-check (validates a skill folder against Agent Skills best practices) and eli13 (explain a topic like I'm 13, with Japanese translation).",
+  "version": "0.2.0",
   "author": {
     "name": "hirokita117"
   },
   "homepage": "https://github.com/hirokita117/common-skill",
   "repository": "https://github.com/hirokita117/common-skill",
   "license": "MIT",
-  "keywords": ["skill", "lint", "validation", "best-practices"],
+  "keywords": ["skill", "lint", "validation", "best-practices", "eli13", "explain"],
   "skills": "./skills/"
 }
