@@ -37,7 +37,7 @@
 
 2つの gist の中身はそれぞれ `SKILL.md` 1つだけで、単体ではプラグインではありません。マーケットプレイスのエントリで各 gist の git URL をプラグインのソースとして登録し、Claude Code が skill として認識できるようにしています。
 
-上流の新しいバージョンに移行するには、`.claude-plugin/marketplace.json` の該当エントリの `sha`（および `ref`）を更新します。
+外部 skill はコミットを固定しているので、上流が更新されても自動では切り替わりません。切り替える手順は「外部 skill がバージョンアップしたとき」に書いています。
 
 natural-japanese は lint スクリプトを [`uv`](https://docs.astral.sh/uv/) で実行し、yomiyasu は Python 3 でチェックを実行します。これらがない環境では、各 skill は目視での確認に切り替えます。
 
@@ -58,6 +58,47 @@ natural-japanese は lint スクリプトを [`uv`](https://docs.astral.sh/uv/) 
 /common-skill:eli13 [トピック]
 /ja-refine:ja-refine [doc|blog] [ファイルまたは依頼内容]
 ```
+
+## 外部 skill がバージョンアップしたとき
+
+外部 skill の新しいバージョンを使うには、このリポジトリの管理者が `.claude-plugin/marketplace.json` を更新します。更新しないかぎり、利用者の環境には固定したコミットの内容が入り続けます。
+
+### 管理者の手順
+
+1. 上流の変更内容を読みます。GitHub のリポジトリならリリースノートと差分を、gist ならリビジョンの差分を確認します。`ja-refine` は各 skill の次の部分を前提にしているので、ここが変わっていないかを確かめます。
+
+   | skill | `ja-refine` が前提にしている部分 |
+   |---|---|
+   | yomiyasu | 検査コマンドの `run --stdin`、`verify --final -`、`--state-dir`。文書の種類（`formal`、`article` など）と読み手（`expert`、`informed`、`general`）の名前 |
+   | natural-japanese | lint の `--genre`（`tech`、`business`、`essay`）。深さの指定（`quick`、`full`） |
+   | japanese-tech-writing、cognitive-rhythm-writing | frontmatter の `name`。この名前が skill の呼び出し名になります |
+
+2. 固定するコミットの SHA を調べます。
+
+   ```
+   git ls-remote https://github.com/nanaism/yomiyasu 'refs/tags/<タグ>^{}'
+   git ls-remote https://github.com/coji/natural-japanese 'refs/tags/<タグ>^{}'
+   git ls-remote https://gist.github.com/k16shikano/<gist の ID>.git HEAD
+   ```
+
+   タグの後ろの `^{}` は、タグが指すコミットの SHA を得るための指定です。この指定で何も表示されないタグでは、`^{}` を外して調べます。
+
+3. `.claude-plugin/marketplace.json` の該当エントリを書き換えます。`sha` を新しい SHA にし、`ref` があれば新しいタグにします。`description` と、この README の表に書いたバージョンも合わせて直します。
+
+4. 前提にしている部分が変わっていた場合は、`plugins/ja-refine/skills/ja-refine/SKILL.md` をそれに合わせて直し、`plugins/ja-refine/.claude-plugin/plugin.json` と `marketplace.json` にある `ja-refine` の `version` を上げます。
+
+5. `claude plugin validate .` でマニフェストを検証し、文章を1つ `ja-refine` に通して動作を確かめてから、`main` にマージします。
+
+### 利用者の手順
+
+管理者が `main` を更新したあと、次を実行して Claude Code を再起動します。
+
+```
+/plugin marketplace update common-skill
+/plugin update ja-refine@common-skill
+```
+
+外部 skill が更新されないときは、そのプラグインを個別に更新します（例: `/plugin update yomiyasu@common-skill`）。
 
 ## 構成
 
