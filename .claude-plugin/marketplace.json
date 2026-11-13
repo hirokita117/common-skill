@@ -6,17 +6,39 @@
   },
   "plugins": [
     {
-      "name": "common-skill",
-      "source": "./",
-      "description": "A collection of Claude Code skills: skill-check (validates a skill folder against Agent Skills best practices) and eli13 (explain a topic like I'm 13, with Japanese translation).",
-      "version": "0.2.0",
+      "name": "skill-check",
+      "source": "./plugins/skill-check",
+      "description": "Diagnoses a skill folder against Agent Skills best practices: a deterministic structural check plus a qualitative review.",
+      "version": "0.3.0",
       "author": {
         "name": "hirokita117"
       },
       "homepage": "https://github.com/hirokita117/common-skill",
       "repository": "https://github.com/hirokita117/common-skill",
       "license": "MIT",
-      "keywords": ["skill", "lint", "validation", "best-practices", "eli13", "explain"]
+      "keywords": [
+        "skill",
+        "lint",
+        "validation",
+        "best-practices"
+      ]
+    },
+    {
+      "name": "eli13",
+      "source": "./plugins/eli13",
+      "description": "Explains a topic like you're 13 years old, using a simple HTML artifact, with the final output translated into Japanese.",
+      "version": "0.3.0",
+      "author": {
+        "name": "hirokita117"
+      },
+      "homepage": "https://github.com/hirokita117/common-skill",
+      "repository": "https://github.com/hirokita117/common-skill",
+      "license": "MIT",
+      "keywords": [
+        "eli13",
+        "explain",
+        "japanese"
+      ]
     },
     {
       "name": "ja-refine",
@@ -29,7 +51,12 @@
       "homepage": "https://github.com/hirokita117/common-skill",
       "repository": "https://github.com/hirokita117/common-skill",
       "license": "MIT",
-      "keywords": ["japanese", "writing", "refine", "orchestration"]
+      "keywords": [
+        "japanese",
+        "writing",
+        "refine",
+        "orchestration"
+      ]
     },
     {
       "name": "yomiyasu",

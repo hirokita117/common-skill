@@ -1,0 +1,12 @@
+{
+  "name": "skill-check",
+  "description": "Diagnoses a skill folder against Agent Skills best practices: a deterministic structural check plus a qualitative review.",
+  "version": "0.3.0",
+  "author": {
+    "name": "hirokita117"
+  },
+  "homepage": "https://github.com/hirokita117/common-skill",
+  "repository": "https://github.com/hirokita117/common-skill",
+  "license": "MIT",
+  "keywords": ["skill", "lint", "validation", "best-practices"]
+}
