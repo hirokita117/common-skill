@@ -2,13 +2,16 @@
 
 汎用的な Claude Code の skill を、配布可能なプラグインとしてまとめたリポジトリです。
 
-このリポジトリは Claude Code のマーケットプレイスです。自前のプラグインを2つ収録し、外部のプラグインを4つ参照しています。
+このリポジトリは Claude Code のマーケットプレイスです。自前のプラグインを3つ収録し、外部のプラグインを4つ参照しています。プラグインは skill ごとに分かれているので、必要なものだけをインストールできます。
 
 ## プラグイン
 
-### common-skill
+### skill-check
 
-- skill-check: skill のフォルダが Agent Skills のベストプラクティスに沿っているかを、2つのフェーズで診断します。1つめのフェーズでは、スクリプト（`scripts/check_skill.py`）が構造を機械的に検査します。2つめのフェーズでは、6つの観点から定性的にレビューします。
+- skill-check: skill のフォルダが Agent Skills のベストプラクティスに沿っているかを、2つのフェーズで診断します。1つめのフェーズでは、スクリプト（`scripts/check_skill.py`）が構造を機械的に検査します。2つめのフェーズでは、6つの観点から定性的にレビューします。スクリプトの実行には PyYAML が必要です（`pip install pyyaml`）。
+
+### eli13
+
 - eli13: あるトピックを13歳にもわかるように説明します。説明には、大きな図と少ない言葉でできたシンプルな HTML アーティファクトを使います。最後に、出力を日本語に翻訳します。
 
 ### ja-refine
@@ -45,18 +48,32 @@ natural-japanese は lint スクリプトを [`uv`](https://docs.astral.sh/uv/) 
 
 ```
 /plugin marketplace add hirokita117/common-skill
-/plugin install common-skill@common-skill
+/plugin install skill-check@common-skill
+/plugin install eli13@common-skill
 /plugin install ja-refine@common-skill
 ```
+
+2行目以降は、使いたいプラグインの行だけを実行します。
 
 `ja-refine` をインストールすると、上記の4つの外部プラグインも依存関係としてインストールされます。
 
 インストール後は、次のように skill を呼び出します。
 
 ```
-/common-skill:skill-check [skill フォルダのパス]
-/common-skill:eli13 [トピック]
+/skill-check:skill-check [skill フォルダのパス]
+/eli13:eli13 [トピック]
 /ja-refine:ja-refine [doc|blog] [ファイルまたは依頼内容]
+```
+
+### 以前の common-skill プラグインから移行する
+
+skill-check と eli13 は、以前は `common-skill` という1つのプラグインに入っていました。このプラグインは廃止したので、インストール済みの場合は次の手順で入れ替えます。呼び出し名も `/common-skill:skill-check` から `/skill-check:skill-check` のように変わります。
+
+```
+/plugin marketplace update common-skill
+/plugin uninstall common-skill@common-skill
+/plugin install skill-check@common-skill
+/plugin install eli13@common-skill
 ```
 
 ## 外部 skill がバージョンアップしたとき
@@ -105,17 +122,23 @@ natural-japanese は lint スクリプトを [`uv`](https://docs.astral.sh/uv/) 
 ```
 common-skill/
 ├── .claude-plugin/
-│   ├── plugin.json        # common-skill プラグインのマニフェスト
-│   └── marketplace.json   # マーケットプレイスの定義（自前2つ + 外部4つ）
-├── skills/                # common-skill プラグインの skill
-│   ├── skill-check/
-│   │   ├── SKILL.md
-│   │   └── scripts/
-│   │       ├── check_skill.py
-│   │       └── list_skills.py
-│   └── eli13/
-│       └── SKILL.md
+│   └── marketplace.json   # マーケットプレイスの定義（自前3つ + 外部4つ）
 └── plugins/
+    ├── skill-check/       # skill-check プラグイン
+    │   ├── .claude-plugin/
+    │   │   └── plugin.json
+    │   └── skills/
+    │       └── skill-check/
+    │           ├── SKILL.md
+    │           └── scripts/
+    │               ├── check_skill.py
+    │               └── list_skills.py
+    ├── eli13/             # eli13 プラグイン
+    │   ├── .claude-plugin/
+    │   │   └── plugin.json
+    │   └── skills/
+    │       └── eli13/
+    │           └── SKILL.md
     └── ja-refine/         # ja-refine プラグイン
         ├── .claude-plugin/
         │   └── plugin.json   # 4つの依存関係を宣言
@@ -123,5 +146,3 @@ common-skill/
             └── ja-refine/
                 └── SKILL.md
 ```
-
-`check_skill.py` スクリプトの実行には PyYAML が必要です（`pip install pyyaml`）。

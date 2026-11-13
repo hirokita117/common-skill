@@ -1,0 +1,12 @@
+{
+  "name": "eli13",
+  "description": "Explains a topic like you're 13 years old, using a simple HTML artifact, with the final output translated into Japanese.",
+  "version": "0.3.0",
+  "author": {
+    "name": "hirokita117"
+  },
+  "homepage": "https://github.com/hirokita117/common-skill",
+  "repository": "https://github.com/hirokita117/common-skill",
+  "license": "MIT",
+  "keywords": ["eli13", "explain", "japanese"]
+}
