@@ -17,6 +17,79 @@
       "repository": "https://github.com/hirokita117/common-skill",
       "license": "MIT",
       "keywords": ["skill", "lint", "validation", "best-practices", "eli13", "explain"]
+    },
+    {
+      "name": "ja-refine",
+      "source": "./plugins/ja-refine",
+      "description": "LLM が生成した日本語を理解しやすい日本語に直すオーケストレーション skill。doc モード（専門文書・社内の公的文書）と blog モード（ブログ・不特定多数向け）で、yomiyasu / natural-japanese / japanese-tech-writing / cognitive-rhythm-writing を順に適用する。",
+      "version": "0.1.0",
+      "author": {
+        "name": "hirokita117"
+      },
+      "homepage": "https://github.com/hirokita117/common-skill",
+      "repository": "https://github.com/hirokita117/common-skill",
+      "license": "MIT",
+      "keywords": ["japanese", "writing", "refine", "orchestration"]
+    },
+    {
+      "name": "yomiyasu",
+      "source": {
+        "source": "github",
+        "repo": "nanaism/yomiyasu",
+        "ref": "v3.1.0",
+        "sha": "db78b9bc5e868549b517a037df7a4d1c93edac23"
+      },
+      "description": "External (not vendored): nanaism/yomiyasu v3.1.0, MIT. Fetched from upstream at install time. Dependency of ja-refine.",
+      "author": {
+        "name": "nanaism"
+      },
+      "homepage": "https://github.com/nanaism/yomiyasu",
+      "license": "MIT"
+    },
+    {
+      "name": "natural-japanese",
+      "source": {
+        "source": "github",
+        "repo": "coji/natural-japanese",
+        "ref": "v2.0.0",
+        "sha": "1fb57128a2f0d160e61320154226fdc86343ee2a"
+      },
+      "description": "External (not vendored): coji/natural-japanese v2.0.0, MIT. Fetched from upstream at install time. Dependency of ja-refine.",
+      "author": {
+        "name": "coji"
+      },
+      "homepage": "https://github.com/coji/natural-japanese",
+      "license": "MIT"
+    },
+    {
+      "name": "japanese-tech-writing",
+      "source": {
+        "source": "url",
+        "url": "https://gist.github.com/k16shikano/fd287c3133457c4fd8f5601d34aa817d.git",
+        "sha": "8f2d57610a73efc97d743c9b0b0ecb1002e09fa4"
+      },
+      "description": "External (not vendored): k16shikano's japanese-tech-writing gist, Unlicense. Fetched from the gist at install time. Dependency of ja-refine.",
+      "author": {
+        "name": "k16shikano"
+      },
+      "homepage": "https://gist.github.com/k16shikano/fd287c3133457c4fd8f5601d34aa817d",
+      "license": "Unlicense",
+      "skills": "."
+    },
+    {
+      "name": "cognitive-rhythm-writing",
+      "source": {
+        "source": "url",
+        "url": "https://gist.github.com/k16shikano/eb2929f13ed19c97188393d297be8432.git",
+        "sha": "a3b1e26beced71d582e13314fb6f5b179b023c76"
+      },
+      "description": "External (not vendored): k16shikano's cognitive-rhythm-writing gist, Unlicense. Fetched from the gist at install time. Dependency of ja-refine.",
+      "author": {
+        "name": "k16shikano"
+      },
+      "homepage": "https://gist.github.com/k16shikano/eb2929f13ed19c97188393d297be8432",
+      "license": "Unlicense",
+      "skills": "."
     }
   ]
 }

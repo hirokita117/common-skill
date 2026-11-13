@@ -1,0 +1,18 @@
+{
+  "name": "ja-refine",
+  "description": "LLM が生成した日本語を理解しやすい日本語に直すオーケストレーション skill。doc モード（専門文書・社内の公的文書）と blog モード（ブログ・不特定多数向け）で、yomiyasu / natural-japanese / japanese-tech-writing / cognitive-rhythm-writing を順に適用する。",
+  "version": "0.1.0",
+  "author": {
+    "name": "hirokita117"
+  },
+  "homepage": "https://github.com/hirokita117/common-skill",
+  "repository": "https://github.com/hirokita117/common-skill",
+  "license": "MIT",
+  "keywords": ["japanese", "writing", "refine", "orchestration"],
+  "dependencies": [
+    "yomiyasu",
+    "natural-japanese",
+    "japanese-tech-writing",
+    "cognitive-rhythm-writing"
+  ]
+}
