@@ -2,31 +2,31 @@
 
 汎用的な Claude Code の skill を、配布可能なプラグインとしてまとめたリポジトリです。
 
-このリポジトリは Claude Code の**マーケットプレイス**として機能します。自前のプラグインを2つ提供し、さらに外部のプラグインを4つ参照しています。
+このリポジトリは Claude Code のマーケットプレイスです。自前のプラグインを2つ収録し、外部のプラグインを4つ参照しています。
 
 ## プラグイン
 
 ### common-skill
 
-- **skill-check** — skill のフォルダが Agent Skills のベストプラクティスに沿っているかを、2つのフェーズで診断します。1つめはスクリプト（`scripts/check_skill.py`）による決定的な構造チェックで、2つめは6つの観点からの定性的なレビューです。
-- **eli13** — あるトピックを13歳にもわかるように説明します。大きな図と少ない言葉で構成されたシンプルな HTML アーティファクトを使い、最終的な出力は日本語に翻訳されます。
+- skill-check: skill のフォルダが Agent Skills のベストプラクティスに沿っているかを、2つのフェーズで診断します。1つめのフェーズでは、スクリプト（`scripts/check_skill.py`）が構造を機械的に検査します。2つめのフェーズでは、6つの観点から定性的にレビューします。
+- eli13: あるトピックを13歳にもわかるように説明します。説明には、大きな図と少ない言葉でできたシンプルな HTML アーティファクトを使います。最後に、出力を日本語に翻訳します。
 
 ### ja-refine
 
-- **ja-refine** — LLM が生成した日本語を、意味を変えることなく、理解しやすい日本語へと書き直します。この skill 自体は文章の規則を持っていません。4つの外部 skill を決まった順序でオーケストレーションし、それらの規則が衝突した場合の解決を担います。
+- ja-refine: LLM が生成した日本語を、意味を変えずに、理解しやすい日本語へ書き直します。この skill 自体は文章の規則を持っていません。4つの外部 skill を決まった順序で呼び出し、それらの規則が衝突したときは、どれを優先するかを決めます。
 
-モードは2つあり、プロンプトの内容から選択されます。
+モードは2つあり、プロンプトの内容から skill が選びます。
 
-| モード | 用途 | 適用する段階 |
+| モード | 用途 | 適用する skill（左から順） |
 |---|---|---|
 | `doc`（既定） | 専門的な文書や社内の公的な文書。仕様書、報告書、議事録、提案書、README など | japanese-tech-writing → natural-japanese → yomiyasu |
-| `blog` | ブログ記事など、不特定多数の読み手に向けて書かれた文章 | japanese-tech-writing → cognitive-rhythm-writing → natural-japanese → yomiyasu |
+| `blog` | ブログ記事など、不特定多数の読み手に向けた文章 | japanese-tech-writing → cognitive-rhythm-writing → natural-japanese → yomiyasu |
 
-モードを判定できない場合は、`doc` モードで動作します。ファイルを渡した場合はそのファイルを結果で上書きし、テキストを貼り付けた場合は結果を返答として返します。
+モードを判定できない場合は、`doc` モードで動作します。ファイルを渡した場合はそのファイルを結果で上書きし、テキストを貼り付けた場合は結果を返答に書きます。
 
 ## ja-refine が利用する外部 skill
 
-`ja-refine` は以下の skill に依存しています。**これらはいずれも、このリポジトリにコピーされていません。** マーケットプレイスのマニフェストは、コミットを固定したうえで各上流のソースを指し示しているだけであり、Claude Code がインストール時にそこから取得します。
+`ja-refine` は以下の skill に依存しています。**どれも、このリポジトリにはコピーしていません。** マーケットプレイスのマニフェストには、各上流の取得元と、固定するコミットだけを書いています。インストール時に、Claude Code が上流から取得します。
 
 | プラグイン | 上流 | 作者 | ライセンス |
 |---|---|---|---|
@@ -35,11 +35,11 @@
 | japanese-tech-writing | https://gist.github.com/k16shikano/fd287c3133457c4fd8f5601d34aa817d | k16shikano | Unlicense |
 | cognitive-rhythm-writing | https://gist.github.com/k16shikano/eb2929f13ed19c97188393d297be8432 | k16shikano | Unlicense |
 
-2つの gist はそれぞれ `SKILL.md` を1つだけ持っており、単体ではプラグインではありません。マーケットプレイスのエントリが各 gist の git URL をプラグインのソースとして登録することで、Claude Code がそれを skill として認識できるようにしています。
+2つの gist の中身はそれぞれ `SKILL.md` 1つだけで、単体ではプラグインではありません。マーケットプレイスのエントリで各 gist の git URL をプラグインのソースとして登録し、Claude Code が skill として認識できるようにしています。
 
 上流の新しいバージョンに移行するには、`.claude-plugin/marketplace.json` の該当エントリの `sha`（および `ref`）を更新します。
 
-natural-japanese は lint スクリプトを [`uv`](https://docs.astral.sh/uv/) で実行し、yomiyasu は Python 3 でチェックを実行します。これらがない環境では、各 skill は目視での確認にフォールバックします。
+natural-japanese は lint スクリプトを [`uv`](https://docs.astral.sh/uv/) で実行し、yomiyasu は Python 3 でチェックを実行します。これらがない環境では、各 skill は目視での確認に切り替えます。
 
 ## インストール
 
